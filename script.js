@@ -1054,7 +1054,13 @@ submitBtn.addEventListener("click", function (e) {
   clearInterval(interval);
 
   //Check answer
-  if (checkboxes[question.get(true) - 1].checked) {
+  if (
+    checkboxes[question.get(true) - 1].checked &&
+    checkboxes.reduce(
+      (acc, checkbox) => (checkbox.checked ? acc + 1 : acc),
+      0
+    ) === 1
+  ) {
     //Update PIE
     activePlayer === player1
       ? (sliceEls1[num].style.stroke = category.color)
