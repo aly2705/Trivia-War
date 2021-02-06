@@ -114,8 +114,8 @@ const category0 = {
   ]),
   question14: new Map([
     ["question", "The book “Da Vinci Code,” was written by who?"],
-    [1, ""],
-    [2, ""],
+    [1, "Sam Christer"],
+    [2, "John Grisham"],
     [3, "Dan Brown"],
     [true, 3],
   ]),
@@ -554,8 +554,8 @@ const category3 = {
   question14: new Map([
     ["question", "What kind of cells are found in the brain?"],
     [1, "Neurons"],
-    [2, ""],
-    [3, ""],
+    [2, "Lymphocytes"],
+    [3, "Stem cells"],
     [true, 1],
   ]),
   question15: new Map([
@@ -1089,14 +1089,16 @@ newBtn.addEventListener("click", function () {
   tiles[player2.position].innerHTML = currentTile === 0 ? "Start" : currentTile;
   player1.position = 0;
   player2.position = 0;
-  displayTokens();
   //Hide dice
   diceImg.src = "";
   //Make player1 player active
+  activePlayer = player1;
+  currentTile = activePlayer.position;
   player1.el.classList.add("player__active");
   player2.el.classList.remove("player__active");
   player1.el.classList.remove("player__winner");
   player2.el.classList.remove("player__winner");
+  displayTokens();
 });
 
 //Open modal with instructions
