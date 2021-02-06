@@ -1,0 +1,346 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #444;
+  background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100%;
+  padding: 2rem;
+  position: relative;
+}
+
+/*Styling the Nav Bar*/
+nav {
+  display: flex;
+  width: 100%;
+  min-width: 70rem;
+  height: 8rem;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+#title-image {
+  height: inherit;
+}
+.btn {
+  height: 3.5rem;
+  min-width: 15rem;
+  border-radius: 2rem;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 3rem 0 3rem;
+  opacity: 0.8;
+}
+/*Styling the default modal(for instructions)*/
+.modal {
+  display: block;
+  z-index: 2;
+  position: absolute;
+  background-color: rgba(233, 233, 233, 0.925);
+  width: 70rem;
+  height: 50rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4rem;
+  box-shadow: inset 0 0 4rem #00000063;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+.close__modal {
+  position: absolute;
+  top: 1.8rem;
+  right: 2.5rem;
+  font-size: 3.5rem;
+  color: #333;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+.hidden {
+  display: none;
+}
+.title__modal {
+  padding: 2.5rem;
+  text-align: center;
+}
+.content__modal {
+  position: absolute;
+  top: 5rem;
+  padding: 5rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+/*Quiz properties*/
+.quiz {
+  background-color: yellowgreen;
+  box-shadow: inset 0 0 10rem #0000008c;
+}
+#category {
+  margin-top: 1rem;
+}
+#question {
+  margin-bottom: 3.5rem;
+  font-size: 1.8rem;
+}
+.checkbox {
+  margin-bottom: 2rem;
+}
+.btn__submit {
+  height: 3rem;
+  min-width: 10rem;
+  border-radius: 1rem;
+  margin: 3.2rem 0 0 0;
+  opacity: 1;
+  background-color: white;
+}
+#countdown {
+  margin-top: 35rem;
+  margin-right: 3rem;
+  text-align: end;
+  font-size: 1.5rem;
+}
+
+/*Styling for the inner board*/
+
+.inner-container {
+  position: relative;
+  grid-column: 2 / span 10;
+  grid-row: 2 / span 6;
+  padding: 0.2rem;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: stretch;
+}
+.btn__dice {
+  position: absolute;
+  transform: translate(-50%, 50%);
+  top: 66%;
+  left: 50%;
+  margin: 0;
+  opacity: 1;
+}
+.img__dice {
+  position: absolute;
+  transform: translate(-50%, 50%);
+  top: 48%;
+  left: 50%;
+}
+.player {
+  position: relative;
+  width: 50%;
+  font-size: 1.8rem;
+  text-align: center;
+  color: black;
+  background-color: white;
+  opacity: 0.2;
+  border-radius: 1rem;
+}
+.player__active {
+  opacity: 0.7;
+  box-shadow: inset 0 0 5rem #4b449b;
+}
+.player__winner {
+  background-color: rgb(61, 20, 20);
+  color: #c7365f;
+  font-weight: 700;
+  opacity: 0.9;
+}
+.pie__1 {
+  width: 210px;
+  height: 210px;
+  position: absolute;
+  transform: translate(-50%, 80%);
+  left: 29%;
+}
+
+.pie__2 {
+  width: 210px;
+  height: 210px;
+  position: absolute;
+  transform: translate(-50%, 80%);
+  left: 71%;
+}
+
+/*Styling for board tiles*/
+.token {
+  position: absolute;
+  transform: translate(-50%, 50%);
+  left: 50%;
+  margin-top: -0.5rem;
+}
+.game-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 7rem);
+  position: relative;
+  max-width: 100rem;
+  min-width: 70rem;
+  height: 80vh;
+  margin: 4rem auto 4rem auto;
+  gap: 0.1rem;
+  /* border: 1px solid black; */
+}
+.tile {
+  border: 2px solid black;
+  border-radius: 0.7rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  position: relative;
+  box-shadow: inset 0 0 2rem #00000063;
+}
+.tile__0 {
+  grid-column: 1 / span 1;
+}
+.tile__1 {
+  grid-column: 2 / span 1;
+}
+.tile__2 {
+  grid-column: 3 / span 1;
+}
+.tile__3 {
+  grid-column: 4 / span 1;
+}
+.tile__4 {
+  grid-column: 5 / span 1;
+}
+.tile__5 {
+  grid-column: 6 / span 1;
+}
+.tile__6 {
+  grid-column: 7 / span 1;
+}
+.tile__7 {
+  grid-column: 8 / span 1;
+}
+.tile__8 {
+  grid-column: 9 / span 1;
+}
+.tile__9 {
+  grid-column: 10 / span 1;
+}
+.tile__10 {
+  grid-column: 11 / span 1;
+}
+.tile__11 {
+  grid-column: 12 / span 1;
+}
+.tile__12 {
+  grid-column: 12 / span 1;
+  grid-row: 2;
+}
+.tile__13 {
+  grid-column: 12 / span 1;
+  grid-row: 3;
+}
+.tile__14 {
+  grid-column: 12 / span 1;
+  grid-row: 4;
+}
+.tile__15 {
+  grid-column: 12 / span 1;
+  grid-row: 5;
+}
+.tile__16 {
+  grid-column: 12 / span 1;
+  grid-row: 6;
+}
+.tile__17 {
+  grid-column: 12 / span 1;
+  grid-row: 7;
+}
+.tile__18 {
+  grid-column: 12 / span 1;
+  grid-row: 8;
+}
+.tile__19 {
+  grid-column: 11 / span 1;
+  grid-row: 8;
+}
+.tile__20 {
+  grid-column: 10 / span 1;
+  grid-row: 8;
+}
+.tile__21 {
+  grid-column: 9 / span 1;
+  grid-row: 8;
+}
+.tile__22 {
+  grid-column: 8 / span 1;
+  grid-row: 8;
+}
+.tile__23 {
+  grid-column: 7 / span 1;
+  grid-row: 8;
+}
+.tile__24 {
+  grid-column: 6 / span 1;
+  grid-row: 8;
+}
+.tile__25 {
+  grid-column: 5 / span 1;
+  grid-row: 8;
+}
+.tile__26 {
+  grid-column: 4 / span 1;
+  grid-row: 8;
+}
+.tile__27 {
+  grid-column: 3 / span 1;
+  grid-row: 8;
+}
+.tile__28 {
+  grid-column: 2 / span 1;
+  grid-row: 8;
+}
+.tile__29 {
+  grid-column: 1 / span 1;
+  grid-row: 8;
+}
+.tile__30 {
+  grid-column: 1 / span 1;
+  grid-row: 7;
+}
+.tile__31 {
+  grid-column: 1 / span 1;
+  grid-row: 6;
+}
+.tile__32 {
+  grid-column: 1 / span 1;
+  grid-row: 5;
+}
+.tile__33 {
+  grid-column: 1 / span 1;
+  grid-row: 4;
+}
+.tile__34 {
+  grid-column: 1 / span 1;
+  grid-row: 3;
+}
+.tile__35 {
+  grid-column: 1 / span 1;
+  grid-row: 2;
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Trivia War</title>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule=""
+      src="https://unpkg.com/ionicons@5.4.0/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+    <nav>
+      <button class="btn btn__new">
+        New game<ion-icon
+          name="reload-outline"
+          style="transform: translate(20%, 20%)"
+        ></ion-icon>
+      </button>
+
+      <img id="title-image" src="Trivia_War_Logo1.png" />
+
+      <button class="btn btn__instruct">
+        How to play<ion-icon
+          name="help"
+          style="transform: translate(20%, 15%)"
+        ></ion-icon>
+      </button>
+    </nav>
+    <div class="modal instructions hidden">
+      <h1 class="title__modal">How to play?</h1>
+      <button class="close__modal">x</button>
+      <p class="content__modal" id="instructions">
+        The game follows the concept of the classical Trivial Pursuit Game, but
+        this version is played only by two players and has its rules a little
+        bit changed. The object of the game is to move around the board by
+        correctly answering trivia questions. <br />Questions are split into six
+        categories, with each one having its own color to readily identify
+        itself. Both players have a pie. When a player's token lands on a
+        square, the player answers a question according to its color, which
+        corresponds to one of the six categories. If the player answers the
+        question correctly, he gains a slice for his pie of that color (if he
+        does not yet have one placed). Pieces are fitted into a player's pie as
+        they are earned. A playes wins when he has its own pie complete.
+      </p>
+    </div>
+    <div class="modal quiz hidden">
+      <h1 class="title__modal" id="category">
+        Category: Technology, Economy & Bussiness
+      </h1>
+      <form class="content__modal">
+        <p id="question">
+          In a website browser address bar, what does “www” stand for?
+        </p>
+        <input type="checkbox" id="answer__0" class="checkbox" />
+        <label class="answer" for="answer__0">World working web</label> <br />
+        <input type="checkbox" id="answer__1" class="checkbox" />
+        <label class="answer" for="answer__1">World wide web</label> <br />
+        <input type="checkbox" id="answer__2" class="checkbox" />
+        <label class="answer" for="answer__2">Web working widely</label> <br />
+        <button class="btn btn__submit">Submit</button>
+      </form>
+      <h4 id="countdown"></h4>
+    </div>
+    <div class="overlay hidden"></div>
+    <div class="game-container">
+      <div class="tile tile__0" style="background-color: orange">Start</div>
+      <div class="tile tile__1" style="background-color: lightblue">1</div>
+      <div class="tile tile__2" style="background-color: yellowgreen">2</div>
+      <div class="tile tile__3" style="background-color: orangered">3</div>
+      <div class="tile tile__4" style="background-color: yellow">4</div>
+      <div class="tile tile__5" style="background-color: orchid">5</div>
+      <div class="tile tile__6" style="background-color: orange">6</div>
+      <div class="tile tile__7" style="background-color: lightblue">7</div>
+      <div class="tile tile__8" style="background-color: yellowgreen">8</div>
+      <div class="tile tile__9" style="background-color: orangered">9</div>
+      <div class="tile tile__10" style="background-color: yellow">10</div>
+      <div class="tile tile__11" style="background-color: orchid">11</div>
+      <div class="tile tile__12" style="background-color: orange">12</div>
+      <div class="tile tile__13" style="background-color: lightblue">13</div>
+      <div class="tile tile__14" style="background-color: yellowgreen">14</div>
+      <div class="tile tile__15" style="background-color: orangered">15</div>
+      <div class="tile tile__16" style="background-color: yellow">16</div>
+      <div class="tile tile__17" style="background-color: orchid">17</div>
+      <div class="tile tile__18" style="background-color: orange">18</div>
+      <div class="tile tile__19" style="background-color: lightblue">19</div>
+      <div class="tile tile__20" style="background-color: yellowgreen">20</div>
+      <div class="tile tile__21" style="background-color: orangered">21</div>
+      <div class="tile tile__22" style="background-color: yellow">22</div>
+      <div class="tile tile__23" style="background-color: orchid">23</div>
+      <div class="tile tile__24" style="background-color: orange">24</div>
+      <div class="tile tile__25" style="background-color: lightblue">25</div>
+      <div class="tile tile__26" style="background-color: yellowgreen">26</div>
+      <div class="tile tile__27" style="background-color: orangered">27</div>
+      <div class="tile tile__28" style="background-color: yellow">28</div>
+      <div class="tile tile__29" style="background-color: orchid">29</div>
+      <div class="tile tile__30" style="background-color: orange">30</div>
+      <div class="tile tile__31" style="background-color: lightblue">31</div>
+      <div class="tile tile__32" style="background-color: yellowgreen">32</div>
+      <div class="tile tile__33" style="background-color: orangered">33</div>
+      <div class="tile tile__34" style="background-color: yellow">34</div>
+      <div class="tile tile__35" style="background-color: orchid">35</div>
+      <div class="inner-container">
+        <section class="player player__1">
+          <h1>Player 1</h1>
+        </section>
+
+        <section class="player player__2">
+          <h1>Player 2</h1>
+        </section>
+      </div>
+      <svg class="pie pie__1" height="22px" width="22px" viewbox="0 0 22 22">
+        <circle r="10" cx="11" cy="11" stroke="black" stroke-width="0.4px" />
+        <circle
+          class="slice1 slice__0"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #cd5d7d"
+          stroke-width="10"
+          stroke-dasharray="calc(300/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice1 slice__5"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #cd5d7d"
+          stroke-width="10"
+          stroke-dasharray="calc(250/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice1 slice__4"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #cd5d7d"
+          stroke-width="10"
+          stroke-dasharray="calc(200/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice1 slice__3"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #cd5d7d"
+          stroke-width="10"
+          stroke-dasharray="calc(150/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice1 slice__2"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #cd5d7d"
+          stroke-width="10"
+          stroke-dasharray="calc(100/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice1 slice__1"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #cd5d7d"
+          stroke-width="10"
+          stroke-dasharray="calc(50/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+      </svg>
+      <img class="img__dice" src="" height="70rem" />
+      <button class="btn btn__dice">🎲 Roll dice</button>
+
+      <svg class="pie pie__2" height="22px" width="22px" viewbox="0 0 22 22">
+        <circle r="10" cx="11" cy="11" stroke="black" stroke-width="0.4px" />
+        <circle
+          class="slice2 slice__0"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #949cdf"
+          stroke-width="10"
+          stroke-dasharray="calc(300/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice2 slice__5"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #949cdf"
+          stroke-width="10"
+          stroke-dasharray="calc(250/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice2 slice__4"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #949cdf"
+          stroke-width="10"
+          stroke-dasharray="calc(200/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice2 slice__3"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #949cdf"
+          stroke-width="10"
+          stroke-dasharray="calc(150/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice2 slice__2"
+          r="5"
+          cx="11"
+          cy="11"
+          style="stroke: #949cdf"
+          fill="transparent"
+          stroke-width="10"
+          stroke-dasharray="calc(100/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+        <circle
+          class="slice2 slice__1"
+          r="5"
+          cx="11"
+          cy="11"
+          fill="transparent"
+          style="stroke: #949cdf"
+          stroke-width="10"
+          stroke-dasharray="calc(50/3 * 31.42 / 100) 31.42"
+          transform="rotate(-90) translate(-22)"
+        />
+      </svg>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
