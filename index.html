@@ -48,10 +48,13 @@
         categories, with each one having its own color to readily identify
         itself. Both players have a pie. When a player's token lands on a
         square, the player answers a question according to its color, which
-        corresponds to one of the six categories. If the player answers the
-        question correctly, he gains a slice for his pie of that color (if he
+        corresponds to one of the six categories. Only one answer is correct. 
+        If the player answers the question correctly, he gains a slice for his pie of that color (if he
         does not yet have one placed). Pieces are fitted into a player's pie as
-        they are earned. A playes wins when he has its own pie complete.
+        they are earned. If the player's answer is wrong or he do not answer the
+        question at all, the slice is taken away and he needs to gain it back.
+        The player has 20 seconds to answer every question</br> A player wins when he
+        has its own pie complete.
       </p>
     </div>
     <div class="modal quiz hidden">
@@ -127,7 +130,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #cd5d7d"
+          style="stroke: rgb(212, 164, 178)"
           stroke-width="10"
           stroke-dasharray="calc(300/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -138,7 +141,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #cd5d7d"
+          style="stroke: rgb(212, 164, 178)"
           stroke-width="10"
           stroke-dasharray="calc(250/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -149,7 +152,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #cd5d7d"
+          style="stroke: rgb(212, 164, 178)"
           stroke-width="10"
           stroke-dasharray="calc(200/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -160,7 +163,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #cd5d7d"
+          style="stroke: rgb(212, 164, 178)"
           stroke-width="10"
           stroke-dasharray="calc(150/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -171,7 +174,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #cd5d7d"
+          style="stroke: rgb(212, 164, 178)"
           stroke-width="10"
           stroke-dasharray="calc(100/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -182,7 +185,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #cd5d7d"
+          style="stroke: rgb(212, 164, 178)"
           stroke-width="10"
           stroke-dasharray="calc(50/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -199,7 +202,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #949cdf"
+          style="stroke: rgb(121, 126, 180)"
           stroke-width="10"
           stroke-dasharray="calc(300/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -210,7 +213,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #949cdf"
+          style="stroke: rgb(121, 126, 180)"
           stroke-width="10"
           stroke-dasharray="calc(250/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -221,7 +224,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #949cdf"
+          style="stroke: rgb(121, 126, 180)"
           stroke-width="10"
           stroke-dasharray="calc(200/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -232,7 +235,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #949cdf"
+          style="stroke: rgb(121, 126, 180)"
           stroke-width="10"
           stroke-dasharray="calc(150/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"
@@ -242,7 +245,7 @@
           r="5"
           cx="11"
           cy="11"
-          style="stroke: #949cdf"
+          style="stroke: rgb(121, 126, 180)"
           fill="transparent"
           stroke-width="10"
           stroke-dasharray="calc(100/3 * 31.42 / 100) 31.42"
@@ -254,7 +257,7 @@
           cx="11"
           cy="11"
           fill="transparent"
-          style="stroke: #949cdf"
+          style="stroke: rgb(121, 126, 180)"
           stroke-width="10"
           stroke-dasharray="calc(50/3 * 31.42 / 100) 31.42"
           transform="rotate(-90) translate(-22)"

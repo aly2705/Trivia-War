@@ -586,7 +586,7 @@ const category3 = {
     ["question", "Which element is said to keep bones strong?"],
     [1, "Vitamin B3"],
     [2, "Iron"],
-    [3, "Calciun"],
+    [3, "Calcium"],
     [true, 3],
   ]),
   question19: new Map([
@@ -959,10 +959,15 @@ const closeQuiz = function () {
   overlay.classList.add("hidden");
   switchPlayers();
 };
+const pieceOut = function () {
+  activePlayer === player1
+    ? (sliceEls1[num].style.stroke = player1.color)
+    : (sliceEls2[num].style.stroke = player2.color);
+};
 
 //Player objects & global declarations
 const player1 = {
-  color: "cd5d7d",
+  color: "rgb(212, 164, 178)",
   el: player[0],
   position: 0,
   tokenSVG: `<svg
@@ -970,11 +975,11 @@ const player1 = {
   width="4rem"
   height="4rem"
 >
-  <circle cx="20" cy="20" r="12" style="fill: #cd5d7d; stroke: black" />
+  <circle cx="20" cy="20" r="12" style="fill: rgb(212, 164, 178); stroke: black" />
 </svg>`,
 };
 const player2 = {
-  color: "949cdf",
+  color: "rgb(121, 126, 180)",
   el: player[1],
   position: 0,
   tokenSVG: `<svg
@@ -982,7 +987,7 @@ const player2 = {
   width="4rem"
   height="4rem"
 >
-  <circle cx="20" cy="20" r="12" style="fill: #949cdf; stroke: black" />
+  <circle cx="20" cy="20" r="12" style="fill: rgb(121, 126, 180); stroke: black" />
 </svg>`,
 };
 let number, category, num, question, timer, remSec;
@@ -1037,7 +1042,10 @@ diceBtn.addEventListener("click", function () {
 
     //Open quiz in 0.5s & display countdown
     setTimeout(openQuiz, 500);
-    timer = setTimeout(closeQuiz, 20000);
+    timer = setTimeout(function () {
+      pieceOut();
+      closeQuiz();
+    }, 20000);
     remSec = 20;
     countdown.textContent = `Remaining time: ${remSec} sec`;
     interval = setInterval(() => {
@@ -1061,17 +1069,18 @@ submitBtn.addEventListener("click", function (e) {
       0
     ) === 1
   ) {
-    //Update PIE
     activePlayer === player1
       ? (sliceEls1[num].style.stroke = category.color)
       : (sliceEls2[num].style.stroke = category.color);
+  } else {
+    pieceOut();
   }
 
   //Check for winner
-  if (sliceEls1.every((slice) => slice.style.stroke !== "rgb(205, 93, 125)")) {
+  if (sliceEls1.every((slice) => slice.style.stroke !== "rgb(212, 164, 178)")) {
     player1.el.classList.add("player__winner");
   }
-  if (sliceEls2.every((slice) => slice.style.stroke !== "rgb(148, 156, 223)")) {
+  if (sliceEls2.every((slice) => slice.style.stroke !== "rgb(121, 126, 180)")) {
     player2.el.classList.add("player__winner");
   }
 
@@ -1082,8 +1091,8 @@ submitBtn.addEventListener("click", function (e) {
 //New Game
 newBtn.addEventListener("click", function () {
   //Empty the pies
-  sliceEls1.forEach((slice) => (slice.style.stroke = "rgb(205, 93, 125)"));
-  sliceEls2.forEach((slice) => (slice.style.stroke = "rgb(148, 156, 223)"));
+  sliceEls1.forEach((slice) => (slice.style.stroke = "rgb(212, 164, 178)"));
+  sliceEls2.forEach((slice) => (slice.style.stroke = "rgb(121, 126, 180)"));
   //Place tokens to start
   tiles[player1.position].innerHTML = currentTile === 0 ? "Start" : currentTile;
   tiles[player2.position].innerHTML = currentTile === 0 ? "Start" : currentTile;
