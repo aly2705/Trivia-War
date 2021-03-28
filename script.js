@@ -972,18 +972,26 @@ const wait = function (seconds) {
   return new Promise((resolve, _) => setTimeout(resolve, seconds * 1000));
 };
 const openQuizWithTimer = async function () {
+  //Wait half a second
   await wait(0.5);
   openQuiz();
+
+  //Init timer
   timer = setTimeout(function () {
     pieceOut();
     closeQuiz();
   }, 20000);
+
+  //Update countdown
   remSec = 20;
   countdown.textContent = `Remaining time: ${remSec} sec`;
   interval = setInterval(() => {
     remSec--;
     countdown.textContent = `Remaining time: ${remSec} sec`;
-    if (remSec === 0) clearInterval(interval);
+    if (remSec === 0) {
+      clearInterval(interval);
+      diceIsClickable = true; //make the dice clickable again
+    }
   }, 1000);
 };
 
@@ -1018,69 +1026,71 @@ let activePlayer = player1;
 activePlayer.el.classList.add("player__active");
 let currentTile = activePlayer.position;
 displayTokens();
+let diceIsClickable = true;
 
 //Event listeners
-
 diceBtn.addEventListener("click", function () {
-  //No winner
-  if (
-    !player1.el.classList.contains("player__winner") &&
-    !player2.el.classList.contains("player__winner")
-  ) {
-    //Clear current tile
-    tiles[currentTile].innerHTML = currentTile === 0 ? "Start" : currentTile;
+  {
+    //If there is a winner, dice is not clickable
+    if (
+      player1.el.classList.contains("player__winner") ||
+      player2.el.classList.contains("player__winner")
+    )
+      diceIsClickable = false;
 
-    //Generate dice roll, display dice & update current position
-    number = Math.trunc(Math.random() * 6 + 1);
-    diceImg.src = `dice-${number}.png`;
-    currentTile += number;
+    if (diceIsClickable) {
+      //Cannot click twice
+      diceIsClickable = false;
 
-    //Display tokens after changing positions
-    if (currentTile > 35) currentTile = currentTile - 36;
-    activePlayer.position = currentTile;
-    displayTokens();
+      //Clear current tile
+      tiles[currentTile].innerHTML = currentTile === 0 ? "Start" : currentTile;
 
-    //Generate quiz
-    category = categories.find(
-      (category) => category.color === tiles[currentTile].style.backgroundColor
-    );
-    num = categories.findIndex(
-      (category) => category.color === tiles[currentTile].style.backgroundColor
-    );
-    //Random question in the category
-    question =
-      category[
-        `question${Math.trunc(Math.random() * category.numQuestions + 1)}`
-      ];
+      //Generate dice roll, display dice & update current position
+      number = Math.trunc(Math.random() * 6 + 1);
+      diceImg.src = `dice-${number}.png`;
+      currentTile += number;
 
-    //Display quiz
-    quiz.style.backgroundColor = category.color;
-    categoryLabel.textContent = `Category: ${category.name}`;
-    questionLabel.textContent = question.get("question");
-    answers.forEach(
-      (answer, num) => (answer.textContent = question.get(num + 1))
-    );
-    checkboxes.forEach((checkbox) => (checkbox.checked = false));
+      //Display tokens after changing positions
+      if (currentTile > 35) currentTile = currentTile - 36;
+      activePlayer.position = currentTile;
+      displayTokens();
 
-    //Open quiz in 0.5s & display countdown
-    openQuizWithTimer();
+      //Generate quiz
+      category = categories.find(
+        (category) =>
+          category.color === tiles[currentTile].style.backgroundColor
+      );
+      num = categories.findIndex(
+        (category) =>
+          category.color === tiles[currentTile].style.backgroundColor
+      );
+      //Random question in the category
+      question =
+        category[
+          `question${Math.trunc(Math.random() * category.numQuestions + 1)}`
+        ];
 
-    //See the async function
-    // setTimeout(openQuiz, 500);
-    // timer = setTimeout(function () { pieceOut(); closeQuiz(); }, 21000);
-    // remSec = 20;
-    // countdown.textContent = `Remaining time: ${remSec} sec`;
-    // interval = setInterval(() => {
-    //   remSec--;
-    //   countdown.textContent = `Remaining time: ${remSec} sec`;
-    //   if (remSec === 0) clearInterval(interval);
-    // }, 1000);
+      //Display quiz
+      quiz.style.backgroundColor = category.color;
+      categoryLabel.textContent = `Category: ${category.name}`;
+      questionLabel.textContent = question.get("question");
+      answers.forEach(
+        (answer, num) => (answer.textContent = question.get(num + 1))
+      );
+      checkboxes.forEach((checkbox) => (checkbox.checked = false));
+
+      //Open quiz in 0.5s & display countdown, make the dice clickable again after the time passes
+      openQuizWithTimer();
+    }
   }
 });
 submitBtn.addEventListener("click", function (e) {
   e.preventDefault();
   //Clear timers
   clearTimers();
+
+  //Make dice clickable
+  diceIsClickable = true;
 
   //Check answer
   if (
@@ -1113,6 +1123,8 @@ submitBtn.addEventListener("click", function (e) {
 newBtn.addEventListener("click", function () {
   //Clear timers
   clearTimers();
+  //Make dice clickable
+  diceIsClickable = true;
   //Empty the pies
   sliceEls1.forEach((slice) => (slice.style.stroke = "rgb(212, 164, 178)"));
   sliceEls2.forEach((slice) => (slice.style.stroke = "rgb(121, 126, 180)"));
