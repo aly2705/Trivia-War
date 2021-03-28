@@ -479,7 +479,7 @@ const category3 = {
     [1, "proton"],
     [2, "electron"],
     [3, "neutron"],
-    [true, 2],
+    [true, 3],
   ]),
   question4: new Map([
     ["question", "What is the symbol for potassium?"],
@@ -964,6 +964,28 @@ const pieceOut = function () {
     ? (sliceEls1[num].style.stroke = player1.color)
     : (sliceEls2[num].style.stroke = player2.color);
 };
+const clearTimers = function () {
+  clearTimeout(timer);
+  clearInterval(interval);
+};
+const wait = function (seconds) {
+  return new Promise((resolve, _) => setTimeout(resolve, seconds * 1000));
+};
+const openQuizWithTimer = async function () {
+  await wait(0.5);
+  openQuiz();
+  timer = setTimeout(function () {
+    pieceOut();
+    closeQuiz();
+  }, 20000);
+  remSec = 20;
+  countdown.textContent = `Remaining time: ${remSec} sec`;
+  interval = setInterval(() => {
+    remSec--;
+    countdown.textContent = `Remaining time: ${remSec} sec`;
+    if (remSec === 0) clearInterval(interval);
+  }, 1000);
+};
 
 //Player objects & global declarations
 const player1 = {
@@ -1041,25 +1063,24 @@ diceBtn.addEventListener("click", function () {
     checkboxes.forEach((checkbox) => (checkbox.checked = false));
 
     //Open quiz in 0.5s & display countdown
-    setTimeout(openQuiz, 500);
-    timer = setTimeout(function () {
-      pieceOut();
-      closeQuiz();
-    }, 20000);
-    remSec = 20;
-    countdown.textContent = `Remaining time: ${remSec} sec`;
-    interval = setInterval(() => {
-      remSec--;
-      countdown.textContent = `Remaining time: ${remSec} sec`;
-      if (remSec === 0) clearInterval(interval);
-    }, 1000);
+    openQuizWithTimer();
+
+    //See the async function
+    // setTimeout(openQuiz, 500);
+    // timer = setTimeout(function () { pieceOut(); closeQuiz(); }, 21000);
+    // remSec = 20;
+    // countdown.textContent = `Remaining time: ${remSec} sec`;
+    // interval = setInterval(() => {
+    //   remSec--;
+    //   countdown.textContent = `Remaining time: ${remSec} sec`;
+    //   if (remSec === 0) clearInterval(interval);
+    // }, 1000);
   }
 });
 submitBtn.addEventListener("click", function (e) {
   e.preventDefault();
   //Clear timers
-  clearTimeout(timer);
-  clearInterval(interval);
+  clearTimers();
 
   //Check answer
   if (
@@ -1090,12 +1111,16 @@ submitBtn.addEventListener("click", function (e) {
 
 //New Game
 newBtn.addEventListener("click", function () {
+  //Clear timers
+  clearTimers();
   //Empty the pies
   sliceEls1.forEach((slice) => (slice.style.stroke = "rgb(212, 164, 178)"));
   sliceEls2.forEach((slice) => (slice.style.stroke = "rgb(121, 126, 180)"));
   //Place tokens to start
-  tiles[player1.position].innerHTML = currentTile === 0 ? "Start" : currentTile;
-  tiles[player2.position].innerHTML = currentTile === 0 ? "Start" : currentTile;
+  tiles[player1.position].innerHTML =
+    player1.position === 0 ? "Start" : player1.position;
+  tiles[player2.position].innerHTML =
+    player2.position === 0 ? "Start" : player2.position;
   player1.position = 0;
   player2.position = 0;
   //Hide dice
